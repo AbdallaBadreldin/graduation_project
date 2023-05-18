@@ -1,15 +1,17 @@
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import '../../shared/images.dart';
-import 'patient.dart';
 import 'pharmacy.dart';
 import 'register_screen.dart';
+import 'package:chatapp_master/shared/constants.dart';
 
+import '../patient/home.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -41,7 +43,7 @@ _displayDialog1(BuildContext context) async {
           title: const Text('Wrong password provided for that user.'),
           actions: <Widget>[
             ElevatedButton(
-              child:  const Text('SUBMIT'),
+              child: const Text('SUBMIT'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -57,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
   var check = 0;
   final _formkey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController =  TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   final _auth = FirebaseAuth.instance;
 
@@ -78,7 +80,8 @@ class _LoginScreenState extends State<LoginScreen> {
             size: 20,
             color: Colors.black,
           ),
-        ), systemOverlayStyle: SystemUiOverlayStyle.dark,
+        ),
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       body: Form(
         key: _formkey,
@@ -94,21 +97,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: <Widget>[
                     Column(
                       children: <Widget>[
-
-                            const Text(
-                              "Login",
-                              style: TextStyle(
-                                  fontSize: 30, fontWeight: FontWeight.bold),
-                            ),
+                        const Text(
+                          "Login",
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold),
+                        ),
                         const SizedBox(
                           height: 20,
                         ),
-
-                            Text(
-                              "Login to your account",
-                              style: TextStyle(
-                                  fontSize: 15, color: Colors.grey[700]),
-                            )
+                        Text(
+                          "Login to your account",
+                          style:
+                              TextStyle(fontSize: 15, color: Colors.grey[700]),
+                        )
                       ],
                     ),
                     Padding(
@@ -124,11 +125,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               contentPadding: const EdgeInsets.only(
                                   left: 14.0, bottom: 8.0, top: 8.0),
                               focusedBorder: UnderlineInputBorder(
-                                borderSide: const BorderSide(color: Colors.black),
+                                borderSide:
+                                    const BorderSide(color: Colors.black),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               enabledBorder: UnderlineInputBorder(
-                                borderSide: const BorderSide(color: Colors.black26),
+                                borderSide:
+                                    const BorderSide(color: Colors.black26),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                             ),
@@ -172,11 +175,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               contentPadding: const EdgeInsets.only(
                                   left: 14.0, bottom: 8.0, top: 15.0),
                               focusedBorder: UnderlineInputBorder(
-                                borderSide: const BorderSide(color: Colors.black),
+                                borderSide:
+                                    const BorderSide(color: Colors.black),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               enabledBorder: UnderlineInputBorder(
-                                borderSide: const BorderSide(color: Colors.black26),
+                                borderSide:
+                                    const BorderSide(color: Colors.black26),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                             ),
@@ -199,79 +204,78 @@ class _LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                     ),
-
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 40),
-                          child: Container(
-                            padding: const EdgeInsets.only(top: 3, left: 3),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                border: const Border(
-                                  bottom: BorderSide(color: Colors.black),
-                                  top: BorderSide(color: Colors.black),
-                                  left: BorderSide(color: Colors.black),
-                                  right: BorderSide(color: Colors.black),
-                                )),
-                            child: MaterialButton(
-                              minWidth: double.infinity,
-                              height: 60,
-                              onPressed: () {
-                                setState(() {
-                                  visible = true;
-                                });
-                                signIn(emailController.text,
-                                    passwordController.text);
-                                if (check == 1) {
-                                  _displayDialog(context);
-                                } else if (check == 2) {
-                                  _displayDialog1(context);
-                                }
-                              },
-                              color: Colors.greenAccent,
-                              elevation: 0,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50)),
-                              child: const Text(
-                                "Login",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600, fontSize: 18),
-                              ),
-                            ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 40),
+                      child: Container(
+                        padding: const EdgeInsets.only(top: 3, left: 3),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            border: const Border(
+                              bottom: BorderSide(color: Colors.black),
+                              top: BorderSide(color: Colors.black),
+                              left: BorderSide(color: Colors.black),
+                              right: BorderSide(color: Colors.black),
+                            )),
+                        child: MaterialButton(
+                          minWidth: double.infinity,
+                          height: 60,
+                          onPressed: () {
+                            setState(() {
+                              visible = true;
+                            });
+                            signIn(
+                                emailController.text, passwordController.text);
+                            if (check == 1) {
+                              _displayDialog(context);
+                            } else if (check == 2) {
+                              _displayDialog1(context);
+                            }
+                          },
+                          color: Colors.greenAccent,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50)),
+                          child: const Text(
+                            "Login",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 18),
                           ),
                         ),
-
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            const Text("Don't have an account?"),
-                            MaterialButton(
-                              onPressed: () {
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const Register(),
-                                  ),
-                                );
-                              },
-                              child: const Text(
-                                "Sign up",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600, fontSize: 18),
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        const Text("Don't have an account?"),
+                        MaterialButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const Register(),
                               ),
-                            ),
-                          ],
-                        )
+                            );
+                          },
+                          child: const Text(
+                            "Sign up",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 18),
+                          ),
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ),
-
-                  Container(
-                    height: MediaQuery.of(context).size.height / 3,
-                    decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage(Images.backgroundImg),
-                            fit: BoxFit.cover,),),
+              Container(
+                height: MediaQuery.of(context).size.height / 3,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(Images.backgroundImg),
+                    fit: BoxFit.cover,
                   ),
+                ),
+              ),
             ],
           ),
         ),
@@ -288,13 +292,15 @@ class _LoginScreenState extends State<LoginScreen> {
         .then((DocumentSnapshot documentSnapshot) {
       if (documentSnapshot.exists) {
         if (documentSnapshot.get('userRole') == "Patient") {
+          Constants.userRole = "Patient";
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => const Patient(),
+              builder: (context) => Home.fromname(emailController.text),
             ),
           );
         } else {
+          Constants.userRole = "Patient";
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(

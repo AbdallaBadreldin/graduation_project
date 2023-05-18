@@ -20,7 +20,7 @@ class ChatPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var chatcubit=BlocProvider.of<ChatCubit>(context)..getMessages(receiverID: user.id!);
     return Scaffold(
-      appBar: AppBar(title: Text(user.username!),elevation:0,automaticallyImplyLeading: false,),
+      appBar: AppBar(title: Text(user.username),elevation:0,automaticallyImplyLeading: false,),
       body: Column(children: [
         Expanded(child: BlocConsumer<ChatCubit,ChatStats>(
           listener: (context,state) {
@@ -42,24 +42,24 @@ class ChatPage extends StatelessWidget {
           } ,
         )),
         Container(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: TextField(
             controller:chat_controller ,
             onSubmitted: (data){
               chat_controller.clear();
               controller.animateTo(
                   0,
-                  duration: Duration(seconds: 1),
+                  duration: const Duration(seconds: 1),
                   curve: Curves.fastOutSlowIn);
             },
             decoration: InputDecoration(
-                suffixIcon: IconButton(icon: Icon(Icons.send),onPressed: (){
+                suffixIcon: IconButton(icon: const Icon(Icons.send),onPressed: (){
                   chatcubit.sendmessege(messege: chat_controller.text, reciverid: user.id!);
                   chatcubit.getMessages(receiverID: user.id!);
                 },),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(16),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                         color: Colors.blue
                     )
                 )

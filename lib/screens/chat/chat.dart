@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +10,7 @@ import '../../shared/usable/appbar_main.dart';
 class Chat extends StatefulWidget {
   final String chatRoomId;
 
-  Chat({required this.chatRoomId, required UserModel user});
+  const Chat({super.key, required this.chatRoomId, required UserModel user});
 
   @override
   _ChatState createState() => _ChatState();
@@ -20,7 +19,7 @@ class Chat extends StatefulWidget {
 class _ChatState extends State<Chat> {
 
   late Stream<QuerySnapshot> chats;
-  TextEditingController messageEditingController = new TextEditingController();
+  TextEditingController messageEditingController = TextEditingController();
 
   Widget chatMessages(){
     return    FutureBuilder<DocumentSnapshot>(
@@ -82,15 +81,15 @@ class _ChatState extends State<Chat> {
                   .size
                   .width,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 24),
-                color: Color(0x54FFFFFF),
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+                color: const Color(0x54FFFFFF),
                 child: Row(
                   children: [
                     Expanded(
                         child: TextField(
                           controller: messageEditingController,
                           style: simpleTextStyle(),
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               hintText: "Message ...",
                               hintStyle: TextStyle(
                                 color: Colors.white,
@@ -99,7 +98,7 @@ class _ChatState extends State<Chat> {
                               border: InputBorder.none
                           ),
                         )),
-                    SizedBox(width: 16,),
+                    const SizedBox(width: 16,),
                     GestureDetector(
                       onTap: () {
                         addMessage();
@@ -108,17 +107,17 @@ class _ChatState extends State<Chat> {
                           height: 40,
                           width: 40,
                           decoration: BoxDecoration(
-                              gradient: LinearGradient(
+                              gradient: const LinearGradient(
                                   colors: [
-                                    const Color(0x36FFFFFF),
-                                    const Color(0x0FFFFFFF)
+                                    Color(0x36FFFFFF),
+                                    Color(0x0FFFFFFF)
                                   ],
                                   begin: FractionalOffset.topLeft,
                                   end: FractionalOffset.bottomRight
                               ),
                               borderRadius: BorderRadius.circular(40)
                           ),
-                          padding: EdgeInsets.all(12),
+                          padding: const EdgeInsets.all(12),
                           child: Image.asset("assets/images/send.png",
                             height: 25, width: 25,)),
                     ),
@@ -138,7 +137,7 @@ class MessageTile extends StatelessWidget {
   final String message;
   final bool sendByMe;
 
-  MessageTile({required this.message, required this.sendByMe});
+  const MessageTile({super.key, required this.message, required this.sendByMe});
 
 
   @override
@@ -152,17 +151,17 @@ class MessageTile extends StatelessWidget {
       alignment: sendByMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
         margin: sendByMe
-            ? EdgeInsets.only(left: 30)
-            : EdgeInsets.only(right: 30),
-        padding: EdgeInsets.only(
+            ? const EdgeInsets.only(left: 30)
+            : const EdgeInsets.only(right: 30),
+        padding: const EdgeInsets.only(
             top: 17, bottom: 17, left: 20, right: 20),
         decoration: BoxDecoration(
-            borderRadius: sendByMe ? BorderRadius.only(
+            borderRadius: sendByMe ? const BorderRadius.only(
                 topLeft: Radius.circular(23),
                 topRight: Radius.circular(23),
                 bottomLeft: Radius.circular(23)
             ) :
-            BorderRadius.only(
+            const BorderRadius.only(
         topLeft: Radius.circular(23),
           topRight: Radius.circular(23),
           bottomRight: Radius.circular(23)),
@@ -179,7 +178,7 @@ class MessageTile extends StatelessWidget {
         ),
         child: Text(message,
             textAlign: TextAlign.start,
-            style: TextStyle(
+            style: const TextStyle(
             color: Colors.white,
             fontSize: 16,
             fontFamily: 'OverpassRegular',

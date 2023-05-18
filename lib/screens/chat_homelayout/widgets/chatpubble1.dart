@@ -20,7 +20,7 @@ Align chatbuble({required MessageModel massege}) {
             bottomRight:Radius.circular(25),
           )
       ),
-      child: Text('${massege.content.toString()}',style: const TextStyle(fontSize: 15,color: Colors.white,),),
+      child: Text(massege.content.toString(),style: const TextStyle(fontSize: 15,color: Colors.white,),),
     ),
   );
 }

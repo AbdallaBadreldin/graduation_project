@@ -1,5 +1,3 @@
-import 'dart:async';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -7,6 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 final _firestore = FirebaseFirestore.instance;
 late User signedInUser;
 class ConversationScreen extends StatefulWidget {
+  const ConversationScreen({super.key});
+
 
 
   @override
@@ -47,8 +47,8 @@ class _ConversationScreenState extends State<ConversationScreen> {
         title: Row(
           children: [
             Image.asset("assets/images/wewe.png", height: 25),
-            SizedBox(width: 10),
-            Text('Chat')
+            const SizedBox(width: 10),
+            const Text('Chat')
           ],
         ),
         actions: [
@@ -58,7 +58,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
               _auth.signOut();
               Navigator.pop(context);
             },
-            icon: Icon(Icons.close),
+            icon: const Icon(Icons.close),
           )
         ],
       ),
@@ -67,10 +67,10 @@ class _ConversationScreenState extends State<ConversationScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            MessageSteamBuilder(),
+            const MessageSteamBuilder(),
 
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 border: Border(
                   top: BorderSide(
                     color: Colors.blue,
@@ -87,7 +87,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
                       onChanged: (value) {
                         messageText =value;
                       },
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         contentPadding: EdgeInsets.symmetric(
                           vertical: 10,
                           horizontal: 20,
@@ -136,7 +136,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
 
                 List<MessageLine> messageWidgets =[];
                 if (!snapshot.hasData){
-                  return Center (
+                  return const Center (
                     child:CircularProgressIndicator(
                       backgroundColor:Colors.blue,
                     ),
@@ -160,7 +160,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
                 }
                 return Expanded(
                   child: ListView(
-                    padding: EdgeInsets.symmetric(horizontal: 10,vertical: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 20),
 
                     children: messageWidgets,
 
@@ -188,16 +188,16 @@ class _ConversationScreenState extends State<ConversationScreen> {
             children: [
               Text(
                   '$sender',
-              style: TextStyle (fontSize: 12,color: Colors.black45),
+              style: const TextStyle (fontSize: 12,color: Colors.black45),
               ),
               Material(
                 elevation: 5,
-                borderRadius: isMe? BorderRadius.only(
+                borderRadius: isMe? const BorderRadius.only(
                   topLeft: Radius.circular(30),
                   bottomLeft: Radius.circular(30),
                   bottomRight: Radius.circular(30),
 
-                ):BorderRadius.only(
+                ):const BorderRadius.only(
                   topRight: Radius.circular(30),
                   bottomLeft: Radius.circular(30),
                   bottomRight: Radius.circular(30),

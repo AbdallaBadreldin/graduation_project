@@ -15,17 +15,17 @@ Widget appBarMain(BuildContext context) {
 InputDecoration textFieldInputDecoration(String hintText) {
   return InputDecoration(
       hintText: hintText,
-      hintStyle: TextStyle(color: Colors.white54),
+      hintStyle: const TextStyle(color: Colors.white54),
       focusedBorder:
-      UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+      const UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
       enabledBorder:
-      UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)));
+      const UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)));
 }
 
 TextStyle simpleTextStyle() {
-  return TextStyle(color: Colors.white, fontSize: 16);
+  return const TextStyle(color: Colors.white, fontSize: 16);
 }
 
 TextStyle biggerTextStyle() {
-  return TextStyle(color: Colors.white, fontSize: 17);
+  return const TextStyle(color: Colors.white, fontSize: 17);
 }

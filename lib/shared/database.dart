@@ -52,7 +52,7 @@ class DataBaseMethods {
   }
 
   getUserChats(String itIsMyName) async {
-    return await FirebaseFirestore.instance
+    return FirebaseFirestore.instance
         .collection("chatRoom")
         .where('users', arrayContains: itIsMyName)
         .snapshots();

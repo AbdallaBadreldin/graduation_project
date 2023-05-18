@@ -1,5 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 import 'package:chatapp_master/screens/login/patient.dart';
+import '../patient/home.dart';
 import 'package:chatapp_master/screens/login/pharmacy.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -59,7 +62,8 @@ class _RegisterState extends State<Register> {
             size: 20,
             color: Colors.black,
           ),
-        ), systemOverlayStyle: SystemUiOverlayStyle.dark,
+        ),
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -326,35 +330,36 @@ class _RegisterState extends State<Register> {
                   child: MaterialButton(
                     minWidth: double.infinity,
                     height: 60,
-                    onPressed: (){
+                    onPressed: () {
                       register(emailController.text, passwordController.text,
                               context)
-                          .then((value) async{
-                            var firbaseauth=  FirebaseAuth.instance.currentUser;
+                          .then((value) async {
+                        var firbaseauth = FirebaseAuth.instance.currentUser;
                         _store
                             .addUser(
-                          UserModel2(username: nameController.text,
+                          UserModel2(
+                              username: nameController.text,
                               email: emailController.text,
                               userPhone: phoneController.text,
                               id: firbaseauth!.uid,
                               userRole: userRole),
                         )
                             .then((value) async {
-                          final sharedPref = await SharedPreferences.getInstance();
-                          await sharedPref.setString('userID', FirebaseAuth.instance.currentUser!.uid.toString());
+                          final sharedPref =
+                              await SharedPreferences.getInstance();
+                          await sharedPref.setString(
+                              'userID',
+                              FirebaseAuth.instance.currentUser!.uid
+                                  .toString());
                           Constants.userid = sharedPref.getString('userID');
+                          Constants.userRole = sharedPref.getString('userRole');
                           Constants.navigatorPushAndRemove(
-                            context: context,
-                            screen: 'userRole' != 'Patient'
-                                ? const Patient()
-                                : const Pharmacy(),
-                          );
+                              context: context,
+                              screen: Constants.userRole != 'Patient'
+                                  ? const Pharmacy()
+                                  : Home.fromname(emailController.text));
                         });
-                      }).then((value) {
-
-                      });
-
-
+                      }).then((value) {});
                     },
                     color: Colors.greenAccent,
                     elevation: 0,
@@ -376,7 +381,7 @@ class _RegisterState extends State<Register> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => LoginScreen(),
+                            builder: (context) => const LoginScreen(),
                           ),
                         );
                       },
@@ -437,7 +442,7 @@ class _RegisterState extends State<Register> {
         password: password,
       );
       return userCredential;
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException {
       Navigator.pop(context);
     } catch (e) {
       print(e.toString());
@@ -464,18 +469,12 @@ class _RegisterState extends State<Register> {
   postDetailsToFirestore(String email, name, role, phone) async {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     var user = _auth.currentUser;
-    CollectionReference ref = FirebaseFirestore.instance.collection('users');
+    CollectionReference ref = firebaseFirestore.collection('users');
     ref.doc(user!.uid).set({
       'email': emailController.text,
       'role': userRole,
       'name': nameController.text,
       'phone': phoneController.text,
     });
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => LoginScreen(),
-      ),
-    );
   }
 }

@@ -27,7 +27,7 @@ class FirstScreen extends StatelessWidget {
               Column(
                 children: <Widget>[
 
-                      Text(
+                      const Text(
                         "Welcome",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 30),
@@ -63,7 +63,7 @@ class FirstScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => LoginScreen(),),);
+                              builder: (context) => const LoginScreen(),),);
                         },
                         shape: RoundedRectangleBorder(
                             side: const BorderSide(color: Colors.black),

@@ -99,13 +99,13 @@ class _SearchScreenState extends State<SearchScreen> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ConversationScreen()));
+            builder: (context) => const ConversationScreen()));
   }
   getChatRoomId(String a, String b) {
     if (a.substring(0, 1).codeUnitAt(0) > b.substring(0, 1).codeUnitAt(0)) {
-      return "$b\_$a";
+      return "${b}_$a";
     } else {
-      return "$a\_$b";
+      return "${a}_$b";
     }
   }
 
@@ -114,7 +114,7 @@ class _SearchScreenState extends State<SearchScreen> {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Chats',
         ),
         elevation: 0.0,
@@ -126,29 +126,29 @@ class _SearchScreenState extends State<SearchScreen> {
             Container(
               height: 70,
               width: double.infinity,
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
+              padding: const EdgeInsets.all(10),
+              decoration: const BoxDecoration(
                 color: Colors.grey,
               ),
               child: Row(children: [
                 Expanded(
                     child: TextFormField(
                   controller: _searchController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Email',
                   ),
                 )),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
-                CircleAvatar(child: Icon(Icons.search)),
+                const CircleAvatar(child: Icon(Icons.search)),
               ]),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             _searchController.text.isEmpty
-                ? Column(
+                ? const Column(
                     children: [
                       SizedBox(
                         height: 20,
@@ -171,7 +171,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         itemBuilder: (context, index) {
                           var userData = _searchResultList[index];
                           return Container(
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -180,7 +180,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                   children: [
                                     Text(
                                       userData['userName'],
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 16,
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold,
@@ -188,7 +188,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                     ),
                                     Text(
                                       userData['userEmail'],
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 15,
                                         color: Colors.grey,
                                       ),
@@ -200,12 +200,12 @@ class _SearchScreenState extends State<SearchScreen> {
                                     sendMessage(userData['userName']);
                                   },
                                   child: Container(
-                                    padding: EdgeInsets.all(10),
+                                    padding: const EdgeInsets.all(10),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
                                       color: Colors.yellow,
                                     ),
-                                    child: Center(
+                                    child: const Center(
                                       child: Text(
                                         'Message',
                                         style: TextStyle(

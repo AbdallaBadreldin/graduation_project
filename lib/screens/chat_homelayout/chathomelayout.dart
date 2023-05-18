@@ -32,7 +32,7 @@ class ChatHome extends StatelessWidget {
                   ):const Text("Users"),
                   actions: [IconButton(onPressed: (){
                     layoutCubit.isserch();
-                  }, icon: layoutCubit.issearched?Icon(Icons.clear):Icon(Icons.search))],
+                  }, icon: layoutCubit.issearched?const Icon(Icons.clear):const Icon(Icons.search))],
                 ),
                 body: layoutCubit.users.isEmpty
                     ? const Center(
@@ -80,7 +80,7 @@ class item_use extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      trailing: Icon(Icons.message_outlined),
+      trailing: const Icon(Icons.message_outlined),
         contentPadding: EdgeInsets.zero,
         subtitle: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),

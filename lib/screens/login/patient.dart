@@ -1,10 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../main.dart';
 import '../chat_homelayout/chathomelayout.dart';
-import '../search_screen.dart';
 import 'login_screen.dart';
+import 'package:chatapp_master/shared/constants.dart';
 
 class Patient extends StatefulWidget {
   const Patient({super.key});
@@ -31,12 +30,12 @@ class _PatientState extends State<Patient> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.search),
+        child: const Icon(Icons.search),
         onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (BuildContext context) => ChatHome(),
+              builder: (BuildContext context) => const ChatHome(),
             ),
           );
         },
@@ -45,13 +44,14 @@ class _PatientState extends State<Patient> {
   }
 
   Future<void> logout(BuildContext context) async {
+    Constants.userRole = "";
     const CircularProgressIndicator();
     await FirebaseAuth.instance
         .signOut()
         .then((value) => Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => LoginScreen(),
+                builder: (context) => const LoginScreen(),
               ),
             ));
   }

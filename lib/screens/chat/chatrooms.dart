@@ -12,6 +12,8 @@ import '../search_screen.dart';
 import 'chat.dart';
 
 class ChatRoom extends StatefulWidget {
+  const ChatRoom({super.key});
+
   @override
   _ChatRoomState createState() => _ChatRoomState();
 }
@@ -70,11 +72,11 @@ class _ChatRoomState extends State<ChatRoom> {
             onTap: () {
 
               Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()));
+                  MaterialPageRoute(builder: (context) => const LoginScreen()));
             },
             child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Icon(Icons.exit_to_app)),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: const Icon(Icons.exit_to_app)),
           )
         ],
       ),
@@ -82,10 +84,10 @@ class _ChatRoomState extends State<ChatRoom> {
         child: chatRoomsList(),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.search),
+        child: const Icon(Icons.search),
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => SearchScreen()));
+              context, MaterialPageRoute(builder: (context) => const SearchScreen()));
         },
       ),
     );
@@ -96,7 +98,7 @@ class ChatRoomsTile extends StatelessWidget {
   final String userName;
   final String chatRoomId;
 
-  ChatRoomsTile({required this.userName,required this.chatRoomId});
+  const ChatRoomsTile({super.key, required this.userName,required this.chatRoomId});
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +118,7 @@ class ChatRoomsTile extends StatelessWidget {
       },
       child: Container(
         color: Colors.black26,
-        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
         child: Row(
           children: [
             Container(
@@ -127,17 +129,17 @@ class ChatRoomsTile extends StatelessWidget {
                   borderRadius: BorderRadius.circular(30)),
               child: Text(userName.substring(0, 1),
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.w300)),
             ),
-            SizedBox(
+            const SizedBox(
               width: 12,
             ),
             Text(userName,
                 textAlign: TextAlign.start,
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
                     fontWeight: FontWeight.w300))

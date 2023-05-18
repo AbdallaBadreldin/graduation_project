@@ -1,12 +1,12 @@
-
-
-
-
-
 import 'package:flutter/material.dart';
 
 class CustomTextFormFeild extends StatelessWidget {
-  CustomTextFormFeild({Key? key,this.label_text,this.icon ,this.onchaged,this.obsecure=false}) ;
+  CustomTextFormFeild(
+      {super.key,
+      this.label_text,
+      this.icon,
+      this.onchaged,
+      this.obsecure = false});
   String? label_text;
   IconData? icon;
   Function(String)? onchaged;
@@ -20,10 +20,12 @@ class CustomTextFormFeild extends StatelessWidget {
         obscureText: obsecure!,
         onChanged: onchaged,
         decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(20.0,),
+            contentPadding: const EdgeInsets.all(
+              20.0,
+            ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(20),
-              borderSide: BorderSide(color: Colors.black),
+              borderSide: const BorderSide(color: Colors.black),
             ),
             labelText: label_text,
             labelStyle: const TextStyle(
@@ -31,14 +33,15 @@ class CustomTextFormFeild extends StatelessWidget {
             ),
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide(color: Colors.grey)),
+                borderSide: const BorderSide(color: Colors.grey)),
             prefixIcon: IconButton(
               icon: Icon(icon),
-              color: Colors.black,onPressed: (){},
+              color: Colors.black,
+              onPressed: () {},
             ),
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide(color: Colors.grey))),
+                borderSide: const BorderSide(color: Colors.grey))),
       ),
     );
   }

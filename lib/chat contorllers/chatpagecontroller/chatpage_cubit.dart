@@ -24,7 +24,7 @@ class ChatCubit extends Cubit<ChatStats>{
   void getMessages({required String receiverID})async{
     emit(GetMessagesLoadingState());
     try{
-      await FirebaseFirestore.instance.collection('users').doc(Constants.userid).collection('Chats')
+      FirebaseFirestore.instance.collection('users').doc(Constants.userid).collection('Chats')
           .doc(receiverID).collection('Messeges').orderBy('date').snapshots().listen((value){
         messages.clear();
         for( var item in value.docs )

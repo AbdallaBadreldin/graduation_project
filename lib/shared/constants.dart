@@ -37,11 +37,12 @@ class Constants {
         type: PageTransitionType.fade,
         child: screen,
       ),
-          (route) => false,
+      (route) => false,
     );
   }
+
   static String myName = "";
   static String? userid;
-  static Color kprimarycolor= Color(0xff2B475E);
-
+  static String? userRole;
+  static Color kprimarycolor = const Color(0xff2B475E);
 }
