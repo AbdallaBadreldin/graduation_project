@@ -23,7 +23,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     chatGPT = OpenAI.instance.build(
-        token: "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",
+        token: "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",
         baseOption:
             HttpSetup(receiveTimeout: const Duration(milliseconds: 60000)));
     super.initState();
@@ -104,12 +104,6 @@ class _ChatScreenState extends State<ChatScreen> {
                 _sendMessage();
               },
             ),
-            TextButton(
-                onPressed: () {
-                  _isImageSearch = true;
-                  _sendMessage();
-                },
-                child: const Text("Generate Image"))
           ],
         ),
       ],
@@ -125,7 +119,16 @@ class _ChatScreenState extends State<ChatScreen> {
       },
       child: Scaffold(
           appBar: AppBar(
-            title: Text("Hello"),
+            toolbarHeight: 100,
+            title: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                "OpenAI's ChatGPT \n",
+                maxLines: 2,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            backgroundColor: Colors.blueGrey,
           ),
           body: SafeArea(
             child: Column(
