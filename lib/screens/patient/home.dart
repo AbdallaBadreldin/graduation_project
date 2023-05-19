@@ -16,7 +16,6 @@ import 'package:chatapp_master/globals.dart' as globals;
 import '../../models/user_model.dart';
 import '../../shared/wedjets/materialbutton.dart';
 import '../bot/chat_screen.dart';
-import '../chat_bot/chat_body.dart';
 import 'clock.dart';
 import 'contactform.dart';
 import 'mydrawer.dart';
