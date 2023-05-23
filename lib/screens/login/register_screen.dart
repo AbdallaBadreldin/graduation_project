@@ -3,7 +3,7 @@
 import 'dart:io';
 import 'package:chatapp_master/screens/login/patient.dart';
 import '../patient/home.dart';
-import 'package:chatapp_master/screens/login/pharmacy.dart';
+import 'package:chatapp_master/screens/pharmacy/pharmacy.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../models/chat_usermodel.dart';
 import '../../shared/constants.dart';
 import '../../shared/store.dart';
+import '../pharmacy/home.dart';
 import 'login_screen.dart';
 
 class Register extends StatefulWidget {
@@ -356,7 +357,7 @@ class _RegisterState extends State<Register> {
                           Constants.navigatorPushAndRemove(
                               context: context,
                               screen: Constants.userRole != 'Patient'
-                                  ? const Pharmacy()
+                                  ? home_pharmacy()
                                   : Home.fromname(emailController.text));
                         });
                       }).then((value) {});

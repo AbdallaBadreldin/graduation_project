@@ -3,7 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import '../../shared/images.dart';
-import 'pharmacy.dart';
+import '../pharmacy/home.dart';
+import '../pharmacy/pharmacy.dart';
 import 'register_screen.dart';
 import 'package:chatapp_master/shared/constants.dart';
 
@@ -304,7 +305,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => const Pharmacy(),
+              builder: (context) => home_pharmacy(),
             ),
           );
         }

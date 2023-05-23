@@ -54,21 +54,13 @@ class _ChatScreenState extends State<ChatScreen> {
     _controller.clear();
     const kTranslateModelV3 = "text-davinci-003";
 
-    if (_isImageSearch) {
-      final request = GenerateImage(message.text, 1, size: "256x256");
+    final request =
+        CompleteText(prompt: message.text, model: kTranslateModelV3);
 
-      final response = await chatGPT!.generateImage(request);
-      Vx.log(response!.data!.last!.url!);
-      insertNewData(response.data!.last!.url!, isImage: true);
-    } else {
-      final request =
-          CompleteText(prompt: message.text, model: kTranslateModelV3);
-
-      // final response = await chatGPT!.onCompleteText(request: request);
-      final response = await chatGPT!.onCompletion(request: request);
-      Vx.log(response!.choices[0].text);
-      insertNewData(response.choices[0].text, isImage: false);
-    }
+    // final response = await chatGPT!.onCompleteText(request: request);
+    final response = await chatGPT!.onCompletion(request: request);
+    Vx.log(response!.choices[0].text);
+    insertNewData(response.choices[0].text, isImage: false);
   }
 
   void insertNewData(String response, {bool isImage = false}) {

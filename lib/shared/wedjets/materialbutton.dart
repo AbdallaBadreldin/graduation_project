@@ -19,9 +19,6 @@ class CustomButton extends StatelessWidget {
         elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(image: AssetImage(""), fit: BoxFit.cover),
-          ),
           child: Text(
             name!,
             style: const TextStyle(

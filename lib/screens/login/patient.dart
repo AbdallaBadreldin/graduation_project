@@ -18,16 +18,7 @@ class _PatientState extends State<Patient> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Patient"),
-        actions: [
-          IconButton(
-            onPressed: () {
-              logout(context);
-            },
-            icon: const Icon(
-              Icons.logout,
-            ),
-          )
-        ],
+        actions: [],
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.search),

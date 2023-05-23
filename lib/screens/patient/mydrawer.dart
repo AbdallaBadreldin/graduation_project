@@ -1,5 +1,6 @@
 import 'package:chatapp_master/screens/patient/contactus.dart';
 import 'package:flutter/material.dart';
+import '../pharmacy/TermsOfUsePage.dart';
 import 'about_us.dart';
 import 'contactform.dart';
 import 'help-feedback.dart';
@@ -75,6 +76,15 @@ class MyDrawer extends StatelessWidget {
               }));
 
               // Add code to navigate to the help/feedback screen here
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.contact_phone),
+            title: Text('Terms of Use '),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return TermsOfUsePage();
+              }));
             },
           ),
           ListTile(

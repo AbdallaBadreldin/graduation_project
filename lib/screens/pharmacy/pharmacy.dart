@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../chat_homelayout/chathomelayout.dart';
 import 'package:chatapp_master/shared/constants.dart';
 import 'package:chatapp_master/globals.dart' as globals;
-import 'login_screen.dart';
+import '../login/login_screen.dart';
 
 class Pharmacy extends StatefulWidget {
   const Pharmacy({super.key});
@@ -21,16 +21,7 @@ class _PharmacyState extends State<Pharmacy> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Pharmacy"),
-        actions: [
-          IconButton(
-            onPressed: () {
-              logout(context);
-            },
-            icon: const Icon(
-              Icons.logout,
-            ),
-          )
-        ],
+        actions: [],
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.search),
