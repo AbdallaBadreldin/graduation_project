@@ -354,11 +354,6 @@ class _RegisterState extends State<Register> {
                                   .toString());
                           Constants.userid = sharedPref.getString('userID');
                           Constants.userRole = sharedPref.getString('userRole');
-                          Constants.navigatorPushAndRemove(
-                              context: context,
-                              screen: Constants.userRole != 'Patient'
-                                  ? home_pharmacy()
-                                  : Home.fromname(emailController.text));
                         });
                       }).then((value) {});
                     },
@@ -442,6 +437,7 @@ class _RegisterState extends State<Register> {
         email: email,
         password: password,
       );
+      route();
       return userCredential;
     } on FirebaseAuthException {
       Navigator.pop(context);
@@ -476,6 +472,37 @@ class _RegisterState extends State<Register> {
       'role': userRole,
       'name': nameController.text,
       'phone': phoneController.text,
+    });
+  }
+
+  void route() {
+    User? user = FirebaseAuth.instance.currentUser;
+    var kk = FirebaseFirestore.instance
+        .collection('users')
+        .doc(user!.uid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        if (documentSnapshot.get('userRole') == "Patient") {
+          Constants.userRole = "Patient";
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Home.fromname(emailController.text),
+            ),
+          );
+        } else {
+          Constants.userRole = "Patient";
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => home_pharmacy(),
+            ),
+          );
+        }
+      } else {
+        print('Document does not exist on the database');
+      }
     });
   }
 }
