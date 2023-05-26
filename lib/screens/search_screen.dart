@@ -148,7 +148,7 @@ class _SearchScreenState extends State<SearchScreen> {
               height: 10,
             ),
             _searchController.text.isEmpty
-                ? const Column(
+                ?  Column(
                     children: [
                       SizedBox(
                         height: 20,

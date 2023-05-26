@@ -31,8 +31,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void dispose() {
-    chatGPT?.close();
-    chatGPT?.genImgClose();
+
     super.dispose();
   }
 
@@ -55,7 +54,7 @@ class _ChatScreenState extends State<ChatScreen> {
     const kTranslateModelV3 = "text-davinci-003";
 
     final request =
-        CompleteText(prompt: message.text, model: kTranslateModelV3);
+        CompleteText(prompt: message.text, model: Model.textDavinci3);
 
     // final response = await chatGPT!.onCompleteText(request: request);
     final response = await chatGPT!.onCompletion(request: request);

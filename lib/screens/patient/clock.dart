@@ -19,7 +19,7 @@ class Clock extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Column(
+                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     // ignore: prefer_const_literals_to_create_immutables
                     children: [

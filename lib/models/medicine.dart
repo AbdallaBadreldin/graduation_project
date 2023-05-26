@@ -5,19 +5,31 @@ class Medicine {
   int? durationOfTreatment;
   String? note;
 
-  Medicine(
-      {required this.medicine,
-        required this.strength,
-        required this.timesPerDay,
-        required this.durationOfTreatment,
-        required this.note});
+  Medicine({
+    this.medicine,
+    this.strength,
+    this.timesPerDay,
+    this.durationOfTreatment,
+    this.note,
+  });
 
-  factory Medicine.fromJson(Map<String, dynamic> json) => Medicine(
-      medicine: json["medicine"],
-      strength: json["strength"].toString(),
-      timesPerDay: json["timesPerDay"] is String ? null : json["timesPerDay"],
-      durationOfTreatment: json["durationOfTreatment"] is String
-          ? null
-          : json["durationOfTreatment"],
-      note: json["note"]);
+  Map<String, dynamic> toMap() {
+    return {
+      'medicine': medicine,
+      'strength': strength,
+      'timesPerDay': timesPerDay,
+      'durationOfTreatment': durationOfTreatment,
+      'note': note,
+    };
+  }
+
+  factory Medicine.fromJson(Map<String, dynamic> json) {
+    return Medicine(
+      medicine: json['medicine'],
+      strength: json['strength'],
+      timesPerDay: json['timesPerDay'],
+      durationOfTreatment: json['durationOfTreatment'],
+      note: json['note'],
+    );
+  }
 }

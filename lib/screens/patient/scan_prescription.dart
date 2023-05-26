@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, import_of_legacy_library_into_null_safe, implementation_imports, unused_import, unnecessary_import, unnecessary_new, duplicate_ignore, camel_case_types, unnecessary_null_comparison
 import 'dart:convert';
 import 'dart:io';
+import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:chatapp_master/screens/patient/precesions-1.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +11,11 @@ import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 // ignore: unused_import
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../drug_names.dart';
+import '../../globals.dart';
 import '../../models/medicine.dart';
 
 class prescription extends StatefulWidget {
@@ -29,6 +33,14 @@ class _prescriptionState extends State<prescription> {
   File? image1;
   var imagepicker = new ImagePicker();
   final textRecognizer = TextRecognizer(script: TextRecognitionScript.latin);
+  late OpenAI? openAI;
+  @override
+  void initState() {
+    openAI = OpenAI.instance.build(
+        token: API_KEY,
+        baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 6)));
+    super.initState();
+  }
 
   uploadimage() async {
     var pickedimage = await imagepicker.pickImage(source: ImageSource.camera);
@@ -84,7 +96,7 @@ class _prescriptionState extends State<prescription> {
           "I have OCR text from a prescription that I need to translate to a JSON format with specific keys. The OCR text may contains information about different medications, including their names, strength, frequency of dosage, duration of treatment, and any notes that may be relevant. Please provide the translated text in the following List of JSON format with the specified keys: 'medicine', 'strength', 'timesPerDay'<int>, 'durationOfTreatment'<int>, and 'note'.put null value if not found.\nHere is the OCR text: $result \n Thank you!";
 
       print(content);
-      await requestRapidApi(content);
+      await requestOpenAI(content);
     } catch (e) {
       Future.delayed(Duration(milliseconds: 10), () {
         showErrorDialog(context, e);
@@ -185,6 +197,13 @@ class _prescriptionState extends State<prescription> {
                 ),
               ),
             ),
+            ElevatedButton(
+              onPressed: () async {
+                await saveMedicationsToFirestore();
+                // Show a success message or navigate to a new screen
+              },
+              child: Text('Save Medications'),
+            ),
             ElevatedButton.icon(
                 onPressed: (() => Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
@@ -276,44 +295,98 @@ class _prescriptionState extends State<prescription> {
     return null;
   }
 
-  void showErrorDialog(BuildContext context, dynamic error) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        content: Text(
-          error.toString(),
-          style: TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.normal,
-            color: Colors.black87,
-          ),
-        ),
-        actions: [
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.white,
-              backgroundColor: Colors.blueAccent,
-            ),
-            child: Text(
-              'Okay',
-              style: TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ],
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        elevation: 8.0,
-        insetPadding: EdgeInsets.all(10.0),
-      ),
-    );
+  Future<void> requestOpenAI(String content) async {
+    String data = '';
+    print("start");
+
+    final request = ChatCompleteText(messages: [
+      Map.of({"role": "user", "content": content})
+    ], maxToken: 200, model: ChatModel.gptTurbo0301);
+    try {
+      openAI?.onChatCompletionSSE(request: request).listen((event) async {
+        data += event.choices[0].message!.content;
+        if (event.choices[0].finishReason == 'stop') {
+          print(data);
+          List<dynamic> decodeContent = json.decode(
+              "[${data.substring(data.indexOf('[') + 1, data.indexOf(']'))}]");
+          for (var medicine in decodeContent) {
+            meds.add(Medicine.fromJson(medicine));
+          }
+          print(meds[0].medicine);
+          print(meds[1].medicine);
+          for (int i = 0; i < meds.length; i++) {
+            meds[i].medicine = await correctDrugName(meds[i].medicine);
+
+            print(meds[i].medicine);
+          }
+          setState(() {
+            meds = meds;
+          });
+
+          Navigator.pop(context);
+        }
+      });
+    } catch (e) {
+      print(e);
+      showErrorDialog(context, e);
+    }
   }
+
+  Future<void> saveMedicationsToFirestore() async {
+    // Get the current user's ID
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+
+    // Get a reference to the medications collection for the current user
+    CollectionReference medicationsCollection =
+        FirebaseFirestore.instance.collection('users/$userId/medications');
+
+    // Create a Map for the medications list
+    Map<String, dynamic> medicationsData = {
+      'medications': meds.map((med) => med.toMap()).toList(),
+    };
+
+    // Save the medications data to Firestore
+    await medicationsCollection.doc('medications').set(medicationsData);
+  }
+}
+
+void showErrorDialog(BuildContext context, dynamic error) {
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      content: Text(
+        error.toString(),
+        style: TextStyle(
+          fontSize: 16.0,
+          fontWeight: FontWeight.normal,
+          color: Colors.black87,
+        ),
+      ),
+      actions: [
+        ElevatedButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.white,
+            backgroundColor: Colors.blueAccent,
+          ),
+          child: Text(
+            'Okay',
+            style: TextStyle(
+              fontSize: 16.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ],
+      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      elevation: 8.0,
+      insetPadding: EdgeInsets.all(10.0),
+    ),
+  );
 }
