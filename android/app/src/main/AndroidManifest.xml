@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.chatapp_master">
     <application
-        android:label="chatapp_master"
+        android:label="HealthBridge"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

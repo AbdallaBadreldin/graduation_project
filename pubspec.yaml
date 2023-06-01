@@ -40,9 +40,11 @@ dependencies:
   google_mlkit_text_recognition: ^0.6.0
   flutter_bloc: ^8.1.2
   firebase_core: ^2.7.0
+  mailer: ^6.0.1
   firebase_auth: ^4.2.9
   cloud_firestore: ^4.4.3
   dio: ^5.1.1
+  flutter_launcher_icons: ^0.13.1
   shared_preferences: ^2.0.6
   flutter_email_sender: ^5.2.0
   url_launcher: ^6.1.11
@@ -73,6 +75,10 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/medical-team.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

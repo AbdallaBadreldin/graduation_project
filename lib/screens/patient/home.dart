@@ -126,11 +126,11 @@ class Home extends StatelessWidget {
                   // Add your "Contact Us" section here
                   CustomButton(
                     name: "Chat With Ai",
-                        onPressed: () {
-                    //   Navigator.push(context,
-                    //       MaterialPageRoute(builder: (context) {
-                    //     return ChatScreen();
-                    //   }));
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return ChatScreen();
+                      }));
                     },
                   ),
                   SizedBox(height: size.height / 20),
