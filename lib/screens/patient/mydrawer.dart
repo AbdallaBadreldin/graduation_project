@@ -1,11 +1,11 @@
-import 'package:chatapp_master/screens/patient/contactus.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../../models/user_model.dart';
 import '../pharmacy/TermsOfUsePage.dart';
+import '../profile/edit_profile.dart';
+import '../profile/profile.dart';
 import 'about_us.dart';
-import 'contactform.dart';
 import 'help-feedback.dart';
-
-import 'package:flutter/material.dart';
 
 class MyDrawer extends StatelessWidget {
   final String? name;
@@ -59,11 +59,13 @@ class MyDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
+            leading: Icon(Icons.person),
+            title: Text('Show Profile'),
             onTap: () {
-              Navigator.pop(context);
-              // Add code to navigate to the settings screen here
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return UserProfileScreen(
+                    userId: FirebaseAuth.instance.currentUser!.uid);
+              }));
             },
           ),
           Divider(),
@@ -74,13 +76,11 @@ class MyDrawer extends StatelessWidget {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return HelpFeedbackPage();
               }));
-
-              // Add code to navigate to the help/feedback screen here
             },
           ),
           ListTile(
             leading: Icon(Icons.contact_phone),
-            title: Text('Terms of Use '),
+            title: Text('Terms of Use'),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return TermsOfUsePage();
@@ -90,9 +90,7 @@ class MyDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.exit_to_app),
             title: Text('Logout'),
-            onTap: onPressed
-            // Add code to perform the logout operation here
-            ,
+            onTap: onPressed,
           ),
         ],
       ),

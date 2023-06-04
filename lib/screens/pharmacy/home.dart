@@ -102,11 +102,11 @@ class _home_pharmacyState extends State<home_pharmacy> {
                   // Add your "Contact Us" section here
                   CustomButton(
                     name: "Chat Bot",
-                       onPressed: () {
-                    //   Navigator.push(context,
-                    //       MaterialPageRoute(builder: (context) {
-                    //     return ChatScreen();
-                    //   }));
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return ChatScreen();
+                      }));
                     },
                   ),
                   SizedBox(height: size.height / 20),

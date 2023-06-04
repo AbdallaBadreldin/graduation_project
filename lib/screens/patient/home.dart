@@ -17,7 +17,6 @@ import '../../models/user_model.dart';
 import '../../shared/wedjets/materialbutton.dart';
 import '../bot/chat_screen.dart';
 import 'clock.dart';
-import 'contactform.dart';
 import 'mydrawer.dart';
 import 'notifications.dart';
 import 'package:chatapp_master/screens/login/patient.dart';
@@ -36,133 +35,156 @@ class Home extends StatelessWidget {
     final email = user?.email ?? 'Not signed in';
 
     return Scaffold(
-        appBar: AppBar(
-          actions: [
-            IconButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => notification()));
-              },
-              icon: Icon(Icons.notifications),
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => notification()));
+            },
+            icon: Icon(Icons.notifications),
+          ),
+        ],
+      ),
+      body: Stack(
+        children: [
+          // Add your background image or color here
+          Container(
+              decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/background.png"),
+              fit: BoxFit.cover,
             ),
-          ],
-        ),
-        body: Stack(
-          children: [
-            // Add your background image or color here
-            Container(
-                decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/background.png"),
-                fit: BoxFit.cover,
-              ),
-            )),
-            SingleChildScrollView(
-              child: Container(
-                  child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(15.0),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(15.0),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: size.height / 40,
-                  ),
-                  CustomButton(
-                    name: "Scan Prescription",
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return prescription();
-                      }));
-                    },
-                  ),
-                  SizedBox(
-                    height: size.height / 30,
-                  ),
-                  CustomButton(
-                    name: "Alarm",
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return Clock();
-                      }));
-                    },
-                  ),
-                  SizedBox(
-                    height: size.height / 30,
-                  ),
-                  CustomButton(
-                    name: "Prescriptions",
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return AllPrescription.fromname();
-                      }));
-                    },
-                  ),
-                  SizedBox(
-                    height: size.height / 30,
-                  ),
-                  CustomButton(
-                    name: "Chat Room",
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return Patient();
-                      }));
-                    },
-                  ),
-                  SizedBox(
-                    height: size.height / 30,
-                  ),
-                  // Add your "Contact Us" section here
-                  CustomButton(
-                    name: "Chat With Ai",
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return ChatScreen();
-                      }));
-                    },
-                  ),
-                  SizedBox(height: size.height / 20),
+          )),
+          SingleChildScrollView(
+            child: Container(
+                child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: size.height / 40,
+                ),
+                CustomButton(
+                  name: "Scan Prescription",
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return prescription();
+                    }));
+                  },
+                ),
+                SizedBox(
+                  height: size.height / 30,
+                ),
+                CustomButton(
+                  name: "Alarm",
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return Clock();
+                    }));
+                  },
+                ),
+                SizedBox(
+                  height: size.height / 30,
+                ),
+                CustomButton(
+                  name: "Prescriptions",
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return AllPrescription.fromname();
+                    }));
+                  },
+                ),
+                SizedBox(
+                  height: size.height / 30,
+                ),
+                CustomButton(
+                  name: "Chat Room",
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return Patient();
+                    }));
+                  },
+                ),
+                SizedBox(
+                  height: size.height / 30,
+                ),
+                // Add your "Contact Us" section here
+                CustomButton(
+                  name: "Chat With Ai",
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return ChatScreen();
+                    }));
+                  },
+                ),
+                SizedBox(height: size.height / 20),
 
-                  CustomButton(
-                    name: "About Us",
+                CustomButton(
+                  name: "About Us",
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return AboutUs();
+                    }));
+                  },
+                ),
+                SizedBox(height: size.height / 20),
+              ],
+            )),
+          ),
+        ],
+      ),
+      drawer: MyDrawer(
+        name: value.split('@')[0],
+        email: email,
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('Logout'),
+                content: Text('Are you sure you want to logout?'),
+                actions: [
+                  TextButton(
+                    child: Text('Cancel'),
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return AboutUs();
-                      }));
+                      Navigator.of(context).pop();
                     },
                   ),
-                  SizedBox(height: size.height / 20),
+                  TextButton(
+                    child: Text('Logout'),
+                    onPressed: () async {
+                      Navigator.of(context).pop();
+                      await FirebaseAuth.instance.signOut().then((value) {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoginScreen()),
+                        );
+                      });
+                    },
+                  ),
                 ],
-              )),
-            ),
-          ],
-        ),
-        drawer: MyDrawer(
-          name: value.split('@')[0],
-          email: email,
-          onPressed: () async {
-            await FirebaseAuth.instance
-                .signOut()
-                .then((value) => Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LoginScreen(),
-                      ),
-                    ));
-          },
-        ));
+              );
+            },
+          );
+        },
+      ),
+    );
   }
 }

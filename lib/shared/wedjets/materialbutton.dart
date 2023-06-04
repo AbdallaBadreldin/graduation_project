@@ -15,7 +15,7 @@ class CustomButton extends StatelessWidget {
         minWidth: double.tryParse('300'),
         height: 100,
         onPressed: onPressed,
-        color: Colors.greenAccent,
+        color: Colors.green,
         elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Container(
