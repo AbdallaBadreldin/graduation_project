@@ -31,7 +31,6 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void dispose() {
-
     super.dispose();
   }
 
@@ -119,7 +118,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 textAlign: TextAlign.center,
               ),
             ),
-            backgroundColor: Colors.blueGrey,
+            backgroundColor: Colors.cyan,
           ),
           body: SafeArea(
             child: Column(

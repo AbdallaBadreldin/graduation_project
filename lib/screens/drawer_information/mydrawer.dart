@@ -1,10 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../models/user_model.dart';
+
 import '../pharmacy/TermsOfUsePage.dart';
-import '../profile/edit_profile.dart';
 import '../profile/profile.dart';
-import 'about_us.dart';
+
 import 'help-feedback.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -26,41 +25,41 @@ class MyDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.green,
+            decoration: const BoxDecoration(
+              color: Colors.cyan,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 30.0,
                   backgroundColor: Colors.white,
                   child: Icon(Icons.person, size: 40.0, color: Colors.blue),
                 ),
-                SizedBox(height: 10.0),
+                const SizedBox(height: 10.0),
                 Text(
                   name!,
-                  style: TextStyle(fontSize: 20.0, color: Colors.white),
+                  style: const TextStyle(fontSize: 20.0, color: Colors.white),
                 ),
-                SizedBox(height: 5.0),
+                const SizedBox(height: 5.0),
                 Text(
                   email!,
-                  style: TextStyle(fontSize: 16.0, color: Colors.white),
+                  style: const TextStyle(fontSize: 16.0, color: Colors.white),
                 ),
               ],
             ),
           ),
           ListTile(
-            leading: Icon(Icons.home),
-            title: Text('Home'),
+            leading: const Icon(Icons.home),
+            title: const Text('Home'),
             onTap: () {
               Navigator.pop(context);
               // Add code to navigate to the home screen here
             },
           ),
           ListTile(
-            leading: Icon(Icons.person),
-            title: Text('Show Profile'),
+            leading: const Icon(Icons.person),
+            title: const Text('Show Profile'),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return UserProfileScreen(
@@ -68,10 +67,10 @@ class MyDrawer extends StatelessWidget {
               }));
             },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            leading: Icon(Icons.help),
-            title: Text('Help & Feedback'),
+            leading: const Icon(Icons.help),
+            title: const Text('Help & Feedback'),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return HelpFeedbackPage();
@@ -79,17 +78,17 @@ class MyDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.contact_phone),
-            title: Text('Terms of Use'),
+            leading: const Icon(Icons.contact_phone),
+            title: const Text('Terms of Use'),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return TermsOfUsePage();
+                return const TermsOfUsePage();
               }));
             },
           ),
           ListTile(
-            leading: Icon(Icons.exit_to_app),
-            title: Text('Logout'),
+            leading: const Icon(Icons.exit_to_app),
+            title: const Text('Logout'),
             onTap: onPressed,
           ),
         ],

@@ -1,4 +1,5 @@
 import 'package:chatapp_master/screens/patient/home.dart';
+import 'package:chatapp_master/screens/pharmacy/home.dart';
 import 'package:chatapp_master/shared/constants.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'chat contorllers/chathome_controller/chathome_cubit.dart';
 import 'chat contorllers/chatpagecontroller/chatpage_cubit.dart';
 import 'screens/main_screen.dart';
 import 'package:chatapp_master/screens/patient/scan_prescription.dart';
+import 'package:flutter/src/material/colors.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,7 +38,10 @@ class MyHome extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(fontFamily: "Courgette", primarySwatch: Colors.green),
+        theme: ThemeData(
+          fontFamily: "Courgette",
+          primarySwatch: Colors.cyan,
+        ),
         home: FirstScreen(),
       ),
     );

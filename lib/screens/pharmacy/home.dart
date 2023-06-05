@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import '../../shared/wedjets/materialbutton.dart';
 import '../bot/chat_screen.dart';
 import '../login/login_screen.dart';
-import '../patient/about_us.dart';
-import '../patient/mydrawer.dart';
+import '../drawer_information/about_us.dart';
+import '../drawer_information/mydrawer.dart';
+import '../drawer_information/button.dart';
 import 'pharmacy.dart';
 
 class home_pharmacy extends StatefulWidget {
@@ -53,17 +54,24 @@ class _home_pharmacyState extends State<home_pharmacy> {
     final email = user?.email ?? 'Not signed in';
 
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: Text(
+            "Pharmacy Home",
+            style: TextStyle(
+              fontFamily: "Courgette",
+              fontWeight: FontWeight.bold,
+              fontSize: 24.0,
+              color: Colors.white,
+            ),
+          ),
+          centerTitle: true,
+          backgroundColor: Colors.cyan,
+          foregroundColor: Colors.white,
+        ),
         body: Stack(
           children: [
             // Add your background image or color here
-            Container(
-                decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/background.png"),
-                fit: BoxFit.cover,
-              ),
-            )),
+            Container(),
             SingleChildScrollView(
               child: Container(
                   child: Column(
@@ -80,47 +88,44 @@ class _home_pharmacyState extends State<home_pharmacy> {
                     ],
                   ),
                   SizedBox(
-                    height: size.height / 40,
+                    height: size.height / 80,
                   ),
-
-                  SizedBox(
-                    height: size.height / 30,
-                  ),
-                  CustomButton(
-                    name: "Chat With Patient",
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return Pharmacy();
-                      }));
-                    },
-                  ),
-                  SizedBox(
-                    height: size.height / 30,
-                  ),
-
-                  // Add your "Contact Us" section here
-                  CustomButton(
-                    name: "Chat Bot",
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return ChatScreen();
-                      }));
-                    },
-                  ),
-                  SizedBox(height: size.height / 20),
-
-                  CustomButton(
-                    name: "About Us",
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return AboutUs();
-                      }));
-                    },
-                  ),
-                  SizedBox(height: size.height / 20),
+                  buildGestureDetector(
+                      context: context,
+                      image: 'assets/images/download.jpg',
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return Pharmacy();
+                        }));
+                      },
+                      text: "Chat",
+                      icon: Icons.access_alarm),
+                  SizedBox(height: 20),
+                  buildGestureDetector(
+                      context: context,
+                      image: 'assets/images/ai.jpg',
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return const ChatScreen();
+                        }));
+                      },
+                      text: "Chat Bot",
+                      icon: Icons.access_alarm),
+                  SizedBox(height: 20),
+                  buildGestureDetector(
+                      context: context,
+                      image: 'assets/images/inf.jpg',
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return AboutUs();
+                        }));
+                      },
+                      text: "About Us",
+                      icon: Icons.access_alarm),
+                  SizedBox(height: 20),
                 ],
               )),
             ),
@@ -129,15 +134,37 @@ class _home_pharmacyState extends State<home_pharmacy> {
         drawer: MyDrawer(
           name: email.split('@')[0],
           email: email,
-          onPressed: () async {
-            await FirebaseAuth.instance
-                .signOut()
-                .then((value) => Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LoginScreen(),
-                      ),
-                    ));
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text('Logout'),
+                  content: Text('Are you sure you want to logout?'),
+                  actions: [
+                    TextButton(
+                      child: Text('Cancel'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    TextButton(
+                      child: Text('Logout'),
+                      onPressed: () async {
+                        Navigator.of(context).pop();
+                        await FirebaseAuth.instance.signOut().then((value) {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const LoginScreen()),
+                          );
+                        });
+                      },
+                    ),
+                  ],
+                );
+              },
+            );
           },
         ));
   }

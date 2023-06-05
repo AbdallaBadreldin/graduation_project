@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'dart:core';
@@ -7,6 +8,7 @@ import '../../models/medicine.dart';
 import 'alarms.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 class AllPrescription extends StatefulWidget {
   List<Medicine> meds = [];
@@ -22,6 +24,8 @@ class AllPrescription extends StatefulWidget {
 
 class _AllPrescriptionState extends State<AllPrescription> {
   List<Medicine> _medications = [];
+  late List<bool> _isOnList;
+  int v = 10;
 
   @override
   void initState() {
@@ -29,11 +33,14 @@ class _AllPrescriptionState extends State<AllPrescription> {
     getMedicationsFromFirestore().then((medications) {
       setState(() {
         _medications = medications;
+        _isOnList = List.filled(medications[0].timesPerDay! + 10,
+            true); // initialize the isOn list with true for all medications
       });
     });
   }
 
   var isOn = true;
+  DateTime now = DateTime.now();
 
   Widget build(BuildContext context) {
     List<Medicine> medss = _medications;
@@ -69,32 +76,42 @@ class _AllPrescriptionState extends State<AllPrescription> {
                     final medicine = _medications[index];
                     if (medicine.timesPerDay == null) medicine.timesPerDay = 1;
                     return ListTile(
-                      title:
-                          Text('${medicine.medicine} (${medicine.strength})'),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          for (int i = 0; i < medicine.timesPerDay!; i++)
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Take ${i + 1} time',
-                                ),
-                                Switch(
-                                  value: isOn,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      isOn = value;
-                                    });
-                                    print("hh");
-                                  },
-                                ),
-                              ],
-                            )
-                        ],
-                      ),
-                    );
+                        title:
+                            Text('${medicine.medicine} (${medicine.strength})'),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            for (int i = 0; i < medicine.timesPerDay!; i++)
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    DateFormat('HH:mm').format(now.add(Duration(
+                                        hours:
+                                            (i * (24 / medicine.timesPerDay!))
+                                                .toInt()))),
+                                    style: TextStyle(fontSize: 16),
+
+                                    // set a fixed width for the text
+                                  ),
+                                  SizedBox(
+                                      width:
+                                          8), // add a SizedBox to create space between the Text and Switch widgets
+                                  Switch(
+                                    value: _isOnList[i * medss.length +
+                                        medicine.timesPerDay!],
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _isOnList[i * medss.length +
+                                            medicine.timesPerDay!] = value;
+                                      });
+                                      print(i + medicine.timesPerDay!);
+                                    },
+                                  ),
+                                ],
+                              )
+                          ],
+                        ));
                   }),
             )
           ],

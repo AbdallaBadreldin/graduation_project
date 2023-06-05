@@ -232,7 +232,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               _displayDialog1(context);
                             }
                           },
-                          color: Colors.greenAccent,
+                          color: Colors.cyanAccent,
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50)),
