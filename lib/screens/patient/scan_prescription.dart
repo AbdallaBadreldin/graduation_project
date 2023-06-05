@@ -342,7 +342,9 @@ class _prescriptionState extends State<prescription> {
 
     // Create a Map for the medications list
     Map<String, dynamic> medicationsData = {
-      'medications': meds.map((med) => med.toMap()).toList(),
+      'medications': meds
+          .map((med) => {...med.toMap(), 'dateAdded': DateTime.now()})
+          .toList(),
     };
 
     // Save the medications data to Firestore
