@@ -86,13 +86,13 @@ class _AllPrescriptionState extends State<AllPrescription> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   Text(
-                                    DateFormat('HH:mm').format(now.add(Duration(
-                                        hours:
-                                            (i * (24 / medicine.timesPerDay!))
+                                    DateFormat('HH:mm').format(
+                                        medicine.addedTime.add(Duration(
+                                            hours: (i *
+                                                    (24 /
+                                                        medicine.timesPerDay!))
                                                 .toInt()))),
                                     style: TextStyle(fontSize: 16),
-
-                                    // set a fixed width for the text
                                   ),
                                   SizedBox(
                                       width:

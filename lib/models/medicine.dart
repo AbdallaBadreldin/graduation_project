@@ -4,6 +4,7 @@ class Medicine {
   int? timesPerDay;
   int? durationOfTreatment;
   String? note;
+  DateTime addedTime;
 
   Medicine({
     this.medicine,
@@ -11,6 +12,7 @@ class Medicine {
     this.timesPerDay,
     this.durationOfTreatment,
     this.note,
+    required this.addedTime,
   });
 
   Map<String, dynamic> toMap() {
@@ -20,6 +22,7 @@ class Medicine {
       'timesPerDay': timesPerDay,
       'durationOfTreatment': durationOfTreatment,
       'note': note,
+      'addedTime': addedTime.toIso8601String()
     };
   }
 
@@ -30,6 +33,7 @@ class Medicine {
       timesPerDay: json['timesPerDay'],
       durationOfTreatment: json['durationOfTreatment'],
       note: json['note'],
+      addedTime: DateTime.parse(json['addedTime']),
     );
   }
 }
