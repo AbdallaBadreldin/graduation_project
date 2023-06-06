@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, import_of_legacy_library_into_null_safe, implementation_imports, unused_import, unnecessary_import, unnecessary_new, duplicate_ignore, camel_case_types, unnecessary_null_comparison
 import 'dart:convert';
 import 'dart:io';
+import 'package:intl/intl.dart';
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:chatapp_master/screens/patient/precesions-1.dart';
 import 'package:dio/dio.dart';
@@ -96,7 +97,7 @@ class _prescriptionState extends State<prescription> {
           "I have OCR text from a prescription that I need to translate to a JSON format with specific keys. The OCR text may contains information about different medications, including their names, strength, frequency of dosage, duration of treatment, and any notes that may be relevant. Please provide the translated text in the following List of JSON format with the specified keys: 'medicine', 'strength', 'timesPerDay'<int>, 'durationOfTreatment'<int>, and 'note'.put null value if not found.\nHere is the OCR text: $result \n Thank you!";
 
       print(content);
-      await requestOpenAI(content);
+      await requestRapidApi(content);
     } catch (e) {
       Future.delayed(Duration(milliseconds: 10), () {
         showErrorDialog(context, e);
@@ -342,9 +343,7 @@ class _prescriptionState extends State<prescription> {
 
     // Create a Map for the medications list
     Map<String, dynamic> medicationsData = {
-      'medications': meds
-          .map((med) => {...med.toMap(), 'dateAdded': DateTime.now()})
-          .toList(),
+      'medications': meds.map((med) => med.toMap()).toList(),
     };
 
     // Save the medications data to Firestore

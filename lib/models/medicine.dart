@@ -4,15 +4,14 @@ class Medicine {
   int? timesPerDay;
   int? durationOfTreatment;
   String? note;
-  DateTime? dateAdded;
 
-  Medicine(
-      {this.medicine,
-      this.strength,
-      this.timesPerDay,
-      this.durationOfTreatment,
-      this.note,
-      this.dateAdded});
+  Medicine({
+    this.medicine,
+    this.strength,
+    this.timesPerDay,
+    this.durationOfTreatment,
+    this.note,
+  });
 
   Map<String, dynamic> toMap() {
     return {
@@ -21,7 +20,6 @@ class Medicine {
       'timesPerDay': timesPerDay,
       'durationOfTreatment': durationOfTreatment,
       'note': note,
-      'dateAdded': dateAdded,
     };
   }
 
@@ -32,7 +30,6 @@ class Medicine {
       timesPerDay: json['timesPerDay'],
       durationOfTreatment: json['durationOfTreatment'],
       note: json['note'],
-      dateAdded: json['dateAdded'],
     );
   }
 }
