@@ -39,10 +39,10 @@ dependencies:
   image_cropper:
   google_mlkit_text_recognition: ^0.6.0
   flutter_bloc: ^8.1.2
-  firebase_core: ^2.7.0
+  firebase_core: ^3.1.1
   mailer: ^6.0.1
-  firebase_auth: ^4.2.9
-  cloud_firestore: ^4.4.3
+  firebase_auth: ^5.0.0
+  cloud_firestore: ^5.1.0
   dio: ^5.1.1
   flutter_launcher_icons: ^0.13.1
   shared_preferences: ^2.0.6
@@ -53,7 +53,7 @@ dependencies:
   email_validator: ^2.1.17
   http: ^0.13.6
   flutter_dotenv: ^5.0.2
-  velocity_x: ^3.6.0
+  velocity_x: ^4.2.0
   flutter_rating_bar: ^4.0.0
   
 

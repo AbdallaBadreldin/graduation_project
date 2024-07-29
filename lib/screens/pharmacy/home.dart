@@ -2,18 +2,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../shared/wedjets/materialbutton.dart';
 import '../bot/chat_screen.dart';
-import '../login/login_screen.dart';
 import '../drawer_information/about_us.dart';
-import '../drawer_information/mydrawer.dart';
 import '../drawer_information/button.dart';
+import '../drawer_information/mydrawer.dart';
+import '../login/login_screen.dart';
 import 'pharmacy.dart';
 
 class home_pharmacy extends StatefulWidget {
   home_pharmacy({super.key});
 
   String value = '';
+
   home_pharmacy.fromname(this.value, {super.key});
 
   @override
